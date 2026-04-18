@@ -77,10 +77,12 @@ for year in years_to_show:
             proportional_votes[row["candidate"]] += nvotes * row["candidatevotes"] / row["totalvotes"]
             if row["candidatevotes"] == per_state["candidatevotes"].max():
                 winner_take_all[row["candidate"]] += nvotes
+    def fmt(d):
+        return {k: round(float(v), 1) for k, v in d.items()}
     print(year)
-    print(f"{proportional_votes=}")
-    print(f"{winner_take_all=}")
-    print(f"{popular_vote_percentage=}")
+    print(f"proportional_votes={fmt(proportional_votes)}")
+    print(f"winner_take_all={fmt(winner_take_all)}")
+    print(f"popular_vote_percentage={fmt(popular_vote_percentage)}")
     print()
     output_dfs.append(pd.DataFrame({
         "proportional_votes": [proportional_votes[candidate] for candidate in candidates_filt],
